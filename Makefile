@@ -1,19 +1,23 @@
 CC = g++
-CFLAGS = -std=c++17 -Wall -pthread
-LDFLAGS =
+CFLAGS = -std=c++17 -Wall -pthread -fPIC
+LDFLAGS = -L. -llog_message -Wl,-rpath,.
 
-SOURCES = log_console_app.cpp log_message_lib.cpp
+APP = log_console_app    
+LIBRARY = liblog_message.so     
+
+SOURCES = log_console_app.cpp log_message_lib.cpp       
 HEADERS = LogWriter.h
-OBJECTS = $(SOURCES:.cpp=.o)
-EXECUTABLE = log_console_app
 
-all: $(EXECUTABLE)
+all: $(APP)
 
-$(EXECUTABLE): $(OBJECTS) 
-	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
+$(LIBRARY): log_message_lib.o
+	$(CC) $(CFLAGS) -shared -o $@ $<
 
 %.o: %.cpp $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+$(APP): log_console_app.o $(LIBRARY)
+	$(CC) $(CFLAGS) $< -o $@ $(LDFLAGS)
+
 clean:
-	rm -rf $(OBJECTS) $(EXECUTABLE)
+	rm -f *.o $(APP) $(LIBRARY)
