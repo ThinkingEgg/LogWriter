@@ -36,7 +36,7 @@ namespace log_message {
             std::string _filename;  // имя файла
             size_t _priority;  //  присвоенный приоритет
             size_t _default_priority;  //  базовый приоритет
-            std::array<std::string, 3> _array_of_priorities { "HIGH", "MEDIUM", "LOW" };;  //  словестные обозначения приоритетов
+            std::array<std::string, 3> _array_of_priorities { "HIGH", "MEDIUM", "LOW" };  //  словестные обозначения приоритетов
     };
 }
 
