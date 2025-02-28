@@ -1,4 +1,4 @@
-CC = g++
+CC = gcc
 CFLAGS = -std=c++17 -Wall -pthread -fPIC
 LDFLAGS = -L. -llog_message -Wl,-rpath,.
 
